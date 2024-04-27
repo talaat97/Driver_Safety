@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "727292167029",
+    "project_id": "driversafety-a5ec1",
+    "storage_bucket": "driversafety-a5ec1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727292167029:android:be47a676c799b21974493c",
+        "android_client_info": {
+          "package_name": "com.example.driver_safety"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRGsYUQyzHnUNNvnxQGSMUCMN8KQKLF28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
