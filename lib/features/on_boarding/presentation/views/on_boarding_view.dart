@@ -8,7 +8,7 @@ class OnBoardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -19,10 +19,10 @@ class OnBoardingView extends StatelessWidget {
               ColorsManager.primary,
             ],
             begin: Alignment.topCenter,
-            end:Alignment.bottomCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-child: OnBoardingViewBuilder(),
+        child: const OnBoardingViewBuilder(),
       ),
     );
   }

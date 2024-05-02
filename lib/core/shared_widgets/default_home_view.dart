@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:driver_safety/core/shared_widgets/default_bottom_navigation_bar.dart';
 
 class DefaultHomeView extends StatelessWidget {
-  const DefaultHomeView({super.key, required this.widget,  this.bottomNavigationBarWidget});
+  const DefaultHomeView(
+      {super.key, required this.widget, this.bottomNavigationBarWidget,this.floatingActionButton});
 
   final Widget widget;
   final Widget? bottomNavigationBarWidget;
+  final Widget? floatingActionButton;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,10 @@ class DefaultHomeView extends StatelessWidget {
                 AssetsManager.imageBackground,
                 width: double.infinity,
                 fit: BoxFit.fill,
-                height: MediaQuery.of(context).size.height * 0.49,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.49,
               ),
               Expanded(
                 child: Container(
@@ -30,10 +37,11 @@ class DefaultHomeView extends StatelessWidget {
               )
             ],
           ),
-           widget,
+          widget,
         ],
       ),
       bottomNavigationBar: bottomNavigationBarWidget,
+      floatingActionButton: FloatingActionButton(onPressed: (){},),
     );
   }
 

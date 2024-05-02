@@ -10,6 +10,37 @@ class HomePageViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    getCuruntLocation() async {
+      Location location = Location();
+
+      bool serviceEnabled;
+      PermissionStatus permissionGranted;
+      LocationData locData;
+
+      serviceEnabled = await location.serviceEnabled();
+      if (!serviceEnabled) {
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return null;
+        }
+      }
+
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return  null;
+        }
+      }
+
+      locData = await location.getLocation();
+      //userLocation = locData;
+      print(locData.latitude);
+      print(locData.longitude);
+      return locData ;
+    }
+
     return Column(
       children: [
         Text('Drive safety',
@@ -31,9 +62,12 @@ class HomePageViewBuilder extends StatelessWidget {
               .copyWith(color: ColorsManager.black, fontSize: 32),
         ),
         InkWell(
-          onTap: () {
-            _getCuruntLocation();
-            Get.to(const GetLocation());
+          onTap: () async{
+
+            LocationData? userLocation = await getCuruntLocation();
+            Get.to(GetLocation(
+              location: userLocation ,
+            ));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,32 +84,4 @@ class HomePageViewBuilder extends StatelessWidget {
       ],
     );
   }
-}
-
-_getCuruntLocation() async {
-  Location location = Location();
-
-  bool serviceEnabled;
-  PermissionStatus permissionGranted;
-  LocationData locationData;
-
-  serviceEnabled = await location.serviceEnabled();
-  if (!serviceEnabled) {
-    serviceEnabled = await location.requestService();
-    if (!serviceEnabled) {
-      return;
-    }
-  }
-
-  permissionGranted = await location.hasPermission();
-  if (permissionGranted == PermissionStatus.denied) {
-    permissionGranted = await location.requestPermission();
-    if (permissionGranted != PermissionStatus.granted) {
-      return;
-    }
-  }
-
-  locationData = await location.getLocation();
-  print(locationData.latitude);
-  print(locationData.longitude);
 }
