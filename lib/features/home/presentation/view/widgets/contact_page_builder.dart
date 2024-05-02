@@ -86,7 +86,7 @@ class ContactPageBuilder extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () {
-
+                  Get.to();
                     },
                     child: Text(
                       'Change',
