@@ -4,14 +4,12 @@ import 'package:driver_safety/core/cache_helper/cache_helper_keys.dart';
 import 'package:driver_safety/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'core/app/app.dart';
-// saber main
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-
   );
   await CacheHelper.init();
   CacheData.firstOpen= await CacheHelper.getData(key: CacheHelperKeys.firstOpen);
@@ -19,7 +17,6 @@ void main() async {
   runApp( MyApp());
 }
 
-//branch 2
 
 
 
@@ -28,4 +25,4 @@ void main() async {
 
 
 
-
+// hello from saber 
