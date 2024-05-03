@@ -9,15 +9,13 @@ import 'package:driver_safety/features/auth/presentation/views/forget_password_v
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_up_view.dart';
 import 'package:driver_safety/features/auth/presentation/views/widgets/google_button.dart';
+import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../core/shared_widgets/form/form_item_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-
-
 
 class SignInViewBuilder extends StatefulWidget {
   const SignInViewBuilder({super.key});
@@ -28,13 +26,10 @@ class SignInViewBuilder extends StatefulWidget {
 
 class _SignInViewBuilderState extends State<SignInViewBuilder> {
   @override
-
   Widget build(BuildContext context) {
-
     TextEditingController _phoneController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    bool isUserValid= false;
-
+    bool isUserValid = false;
 
     return Padding(
       padding: const EdgeInsets.all(30),
@@ -101,37 +96,37 @@ class _SignInViewBuilderState extends State<SignInViewBuilder> {
                     print('test in sign in');
                     print(_phoneController.text);
                     print(_passwordController.text);
-                    Get.to(
-                      DefaultHomeView(
-                        widget: AppBar(
-
-                          title:
-                          FirebaseAuth.instance.currentUser!.emailVerified
-                              ? Text('Welcome to home page')
-                              : Text('we are waiting to vafiy'),
-                          actions: [
-                            IconButton(
-                                onPressed: () async {
-                                  print(isUserValid);
-                                  FirebaseAuth.instance.currentUser!.sendEmailVerification();
-                                  setState(() async{
-                                    isUserValid = await FirebaseAuth.instance.currentUser!.emailVerified;
-                                  });
-
-                                },
-                                icon: const Icon(Icons.refresh))
-                          ],
-                          leading:
-                          IconButton(
-                              onPressed: () {
-                                FirebaseAuth.instance.signOut();
-                                Get.off(SignInView());
-                              },
-                              icon: const Icon(Icons.arrow_back_outlined)),
-                        ),
-                      ),
-                    );
-
+                    FirebaseAuth.instance.currentUser!.emailVerified
+                        ? Get.to(const HomePageView())
+                        : Get.to(DefaultHomeView(
+                            widget: AppBar(
+                              title: FirebaseAuth
+                                      .instance.currentUser!.emailVerified
+                                  ? Text('Welcome to home page')
+                                  : Text('we are waiting to vafiy'),
+                              actions: [
+                                IconButton(
+                                    onPressed: () async {
+                                      print(isUserValid);
+                                      FirebaseAuth.instance.currentUser!
+                                          .sendEmailVerification();
+                                      setState(() async {
+                                        isUserValid = await FirebaseAuth
+                                            .instance
+                                            .currentUser!
+                                            .emailVerified;
+                                      });
+                                    },
+                                    icon: const Icon(Icons.refresh))
+                              ],
+                              leading: IconButton(
+                                  onPressed: () {
+                                    FirebaseAuth.instance.signOut();
+                                    Get.off(SignInView());
+                                  },
+                                  icon: const Icon(Icons.arrow_back_outlined)),
+                            ),
+                          ));
                   } on FirebaseAuthException catch (e) {
                     print(e.toString());
                     if (e.code == 'user-not-found') {
@@ -144,10 +139,11 @@ class _SignInViewBuilderState extends State<SignInViewBuilder> {
             const SizedBox(
               height: SizeManager.spaceBetweenForm - 2,
             ),
-            GoogleButton(label: 'Sign in With Google', onPressed: () {
-
-              signInWithGoogle();
-            }),
+            GoogleButton(
+                label: 'Sign in With Google',
+                onPressed: () {
+                  signInWithGoogle();
+                }),
             const SizedBox(
               height: SizeManager.spaceBetweenForm - 2,
             ),
@@ -183,17 +179,18 @@ class _SignInViewBuilderState extends State<SignInViewBuilder> {
     );
   }
 }
+
 Future signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  if(googleUser == null){
+  if (googleUser == null) {
     return;
   }
 
   // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth = await googleUser
-      ?.authentication;
+  final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
 
   // Create a new credential
   final credential = GoogleAuthProvider.credential(
@@ -206,8 +203,7 @@ Future signInWithGoogle() async {
   Get.off(
     DefaultHomeView(
       widget: AppBar(
-        title:
-        FirebaseAuth.instance.currentUser!.emailVerified
+        title: FirebaseAuth.instance.currentUser!.emailVerified
             ? Text('Welcome to home page')
             : Text('we are waiting to vafiy'),
         actions: [

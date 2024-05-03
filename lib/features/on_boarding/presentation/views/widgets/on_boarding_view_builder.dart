@@ -4,8 +4,10 @@ import 'package:driver_safety/core/resources_manager/assets_manager.dart';
 import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:driver_safety/core/resources_manager/style_manager.dart';
 import 'package:driver_safety/core/shared_widgets/logo_button.dart';
+import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class OnBoardingViewBuilder extends StatelessWidget {
   const OnBoardingViewBuilder({super.key});
@@ -34,7 +36,7 @@ class OnBoardingViewBuilder extends StatelessWidget {
                   )),
           logoButton(label: "Let's Go", onPressed: () async {
           await  CacheHelper.saveData(key: CacheHelperKeys.firstOpen, value: true);
-          //todo navigate
+          Get.to(const SignInView());
           })
         ],
       ),

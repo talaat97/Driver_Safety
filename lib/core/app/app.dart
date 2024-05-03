@@ -1,6 +1,7 @@
 
 import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
 import 'package:driver_safety/features/home/presentation/view/message_page.dart';
+import 'package:driver_safety/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:driver_safety/features/profile/presentation/views/profile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +20,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  User? user;
   @override
   void initState() {
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-
       if (user == null) {
+
         print('------------------------------User is currently signed out!');
       } else {
+        this.user = user;
         print('------------------------------User is signed in!');
       }
     });
@@ -40,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       title: ConstantsManager.appName,
       debugShowCheckedModeBanner: false,
       //home: const ContactPage(),
-      home: const ProfileView(),
+      home: user ==null && false ? const OnBoardingView() : const HomePageView(),
     );
   }
 }

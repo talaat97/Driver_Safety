@@ -4,25 +4,31 @@ import 'package:driver_safety/features/home/presentation/view/get_location.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomePageViewBuilder extends StatelessWidget {
+class HomePageViewBuilder extends StatefulWidget {
   const HomePageViewBuilder({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<HomePageViewBuilder> createState() => _HomePageViewBuilderState();
+}
 
-    getCuruntLocation()async{
+class _HomePageViewBuilderState extends State<HomePageViewBuilder> {
+  @override
+  Widget build(BuildContext context) {
+    bool _isgettingLocation = false;
+    _getCurrentLocation() async {
       Location location = Location();
 
       bool serviceEnabled;
       PermissionStatus permissionGranted;
-      LocationData locData;
+      LocationData locationData;
 
       serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
         serviceEnabled = await location.requestService();
         if (!serviceEnabled) {
-          return null;
+          return;
         }
       }
 
@@ -30,15 +36,41 @@ class HomePageViewBuilder extends StatelessWidget {
       if (permissionGranted == PermissionStatus.denied) {
         permissionGranted = await location.requestPermission();
         if (permissionGranted != PermissionStatus.granted) {
-          return  null;
+          return;
         }
       }
+      setState(() {
+        _isgettingLocation = true;
+      });
+      locationData = await location.getLocation();
+      final lat = locationData.latitude;
+      final lng = locationData.longitude;
 
-      locData = await location.getLocation();
-      //userLocation = locData;
-      print(locData.latitude);
-      print(locData.longitude);
-      return locData ;
+      if (lat == null || lng == null) {
+        return;
+      }
+
+      print('test 01');
+      print(lat);
+      print(lng);
+      String saberMapKey = "AIzaSyBWB1JR4gnnhypAmwDFckN0anoRUTH5SAY";
+      var address;
+
+      try {
+        String googleMapsUrl =
+            'https://www.google.com/maps/search/?api=1&query=$lat,$lng';
+
+        if (await canLaunch(googleMapsUrl)) {
+          await launch(googleMapsUrl);
+        } else {
+          throw 'Could not launch $googleMapsUrl';
+        }
+      } catch (e) {
+        print('test 03');
+        print(e.toString());
+      }
+
+      return address;
     }
 
     return Column(
@@ -62,12 +94,10 @@ class HomePageViewBuilder extends StatelessWidget {
               .copyWith(color: ColorsManager.black, fontSize: 32),
         ),
         InkWell(
-          onTap: () async{
-
-            LocationData? userLocation = await getCuruntLocation();
-            Get.to(GetLocation(
-              location: userLocation ,
-            ));
+          onTap: () async {
+            LocationData? userLocation = await _getCurrentLocation();
+            print(userLocation);
+            Get.to(GetLocation(location: userLocation));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

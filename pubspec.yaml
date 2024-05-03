@@ -49,6 +49,7 @@ dependencies:
   cloud_firestore:
   google_sign_in:
   location:
+  url_launcher:
 
 
 

@@ -5,6 +5,7 @@ import 'package:driver_safety/features/home/presentation/view/concet_page.dart';
 import 'package:driver_safety/features/home/presentation/view/message_page.dart';
 import 'package:driver_safety/features/home/presentation/view/notifaction_page.dart';
 import 'package:driver_safety/features/home/presentation/view/widgets/home_page_view_builder.dart';
+import 'package:driver_safety/features/profile/presentation/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 int selectedPage = 0 ;
@@ -23,6 +24,7 @@ class _HomePageViewState extends State<HomePageView> {
       NotifactionPage(),
       ContactPage(),
       MessagePage(),
+      ProfileView(),
 
     ];
     return DefaultHomeView(
