@@ -10,7 +10,7 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const DefaultHomeView(
       widget: MessagaPageBuilder(),
-      bottomNavigationBarWidget: HomeBottomNavigationBar(),
+
     );
   }
 }

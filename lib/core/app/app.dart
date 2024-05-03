@@ -1,7 +1,5 @@
-import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
-import 'package:driver_safety/features/home/presentation/view/concet_page.dart';
+
 import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
-import 'package:driver_safety/features/home/presentation/view/message_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,8 +37,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeManager.light,
       title: ConstantsManager.appName,
       debugShowCheckedModeBanner: false,
-      home: const ContactPage(),
+      home: const HomePageView(),
     );
   }
 }
-//talaat
+ //my t3del wa saber

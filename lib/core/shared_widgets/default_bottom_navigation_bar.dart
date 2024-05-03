@@ -2,14 +2,14 @@ import 'package:driver_safety/core/resources_manager/assets_manager.dart';
 import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+ int selectedPage = 0 ;
 class HomeBottomNavigationBar extends StatefulWidget {
   const HomeBottomNavigationBar({super.key});
 
   @override
   State<HomeBottomNavigationBar> createState() => _HomeBottomNavigationBarState();
 }
-int selectedPage = 0 ;
+
 class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
@@ -23,31 +23,32 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
           });
           print(selectedPage);
       },
-      currentIndex: selectedPage,
+      currentIndex: selectedPage ,
       elevation: 20,
       iconSize: 50,
+
       items: [
         BottomNavigationBarItem(
 
             backgroundColor: ColorsManager.white,
             icon: SvgPicture.asset(AssetsManager.checkHand),
-            label: '1'),
-        BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.userCall),
-            label: '2'),
-        BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.chat),
-            label: '3'),
+            label: 'checkHand'),
         BottomNavigationBarItem(
             backgroundColor: ColorsManager.white,
             icon: SvgPicture.asset(AssetsManager.notification),
-            label: '4'),
+            label: 'notification'),
+        BottomNavigationBarItem(
+            backgroundColor: ColorsManager.white,
+            icon: SvgPicture.asset(AssetsManager.userCall),
+            label: 'userCall'),
+        BottomNavigationBarItem(
+            backgroundColor: ColorsManager.white,
+            icon: SvgPicture.asset(AssetsManager.chat),
+            label: 'chat'),
         const BottomNavigationBarItem(
             backgroundColor: ColorsManager.white,
             icon:Icon(Icons.person,color: ColorsManager.primary,),
-            label: '5'),
+            label: 'person'),
 
       ],
     ) ;

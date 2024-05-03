@@ -18,11 +18,8 @@ class SignUpViewBuilder extends StatelessWidget {
   SignUpViewBuilder({super.key});
 
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _phoneController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
 
   @override
