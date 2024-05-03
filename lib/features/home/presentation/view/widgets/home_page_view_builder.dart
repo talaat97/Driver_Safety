@@ -11,7 +11,7 @@ class HomePageViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    getCuruntLocation() async {
+    getCuruntLocation()async{
       Location location = Location();
 
       bool serviceEnabled;

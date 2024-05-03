@@ -7,17 +7,26 @@ import 'package:driver_safety/features/home/presentation/view/widgets/home_page_
 
 import 'package:flutter/material.dart';
 
-class HomePageView extends StatelessWidget {
+class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
 
   @override
+  State<HomePageView> createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<HomePageView> {
+  @override
   Widget build(BuildContext context) {
-
-
-    List <Widget> activePage =const [HomePageViewBuilder(),ContactPage(),NotifactionPage(),MessagePage()] ;
-    return  DefaultHomeView(
-      widget: activePage[0],
-      bottomNavigationBarWidget:const HomeBottomNavigationBar(),
+    List<Widget> activePage = const [
+      HomePageViewBuilder(),
+      NotifactionPage(),
+      ContactPage(),
+      MessagePage()
+    ];
+    return DefaultHomeView(
+      widget:
+      activePage[selectedPage],
+      bottomNavigationBarWidget: const HomeBottomNavigationBar(),
     );
   }
 }

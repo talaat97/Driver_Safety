@@ -1,5 +1,4 @@
-import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
-import 'package:driver_safety/features/home/presentation/view/concet_page.dart';
+
 import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
 import 'package:driver_safety/features/home/presentation/view/message_page.dart';
 import 'package:driver_safety/features/profile/presentation/views/profile_view.dart';
@@ -45,4 +44,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-//talaat
+ //my t3del wa saber
