@@ -2,7 +2,7 @@ import 'package:driver_safety/core/resources_manager/assets_manager.dart';
 import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
- int selectedPage = 0 ;
+
 class HomeBottomNavigationBar extends StatefulWidget {
   const HomeBottomNavigationBar({super.key});
 
@@ -16,42 +16,7 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
 
 
 
-    return BottomNavigationBar(
-      onTap: (value) {
-          setState(() {
-            selectedPage = value;
-          });
-          print(selectedPage);
-      },
-      currentIndex: selectedPage ,
-      elevation: 20,
-      iconSize: 50,
-
-      items: [
-        BottomNavigationBarItem(
-
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.checkHand),
-            label: 'checkHand'),
-        BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.notification),
-            label: 'notification'),
-        BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.userCall),
-            label: 'userCall'),
-        BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon: SvgPicture.asset(AssetsManager.chat),
-            label: 'chat'),
-        const BottomNavigationBarItem(
-            backgroundColor: ColorsManager.white,
-            icon:Icon(Icons.person,color: ColorsManager.primary,),
-            label: 'person'),
-
-      ],
-    ) ;
+    return Container() ;
 
 
   }
