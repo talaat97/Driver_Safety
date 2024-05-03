@@ -4,18 +4,16 @@ import 'package:driver_safety/features/home/data/model/Contact.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class ContactPageBuilder extends StatelessWidget {
   const ContactPageBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Contact> contactList= [];
+    List<Contact> contactList = [];
     return Column(
-
       children: [
         Padding(
-          padding: const EdgeInsets.only(top:30 ),
+          padding: const EdgeInsets.only(top: 30),
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
@@ -49,7 +47,7 @@ class ContactPageBuilder extends StatelessWidget {
                   ),
                   const Spacer(),
                   InkWell(
-                    onTap: (){},
+                    onTap: () {},
                     child: Text(
                       'Change',
                       style: TextStyleManager.textStyleRegular.copyWith(
@@ -85,9 +83,7 @@ class ContactPageBuilder extends StatelessWidget {
                   ),
                   const Spacer(),
                   InkWell(
-                    onTap: () {
-                  Get.to();
-                    },
+                    onTap: () {},
                     child: Text(
                       'Change',
                       style: TextStyleManager.textStyleRegular.copyWith(
@@ -102,7 +98,6 @@ class ContactPageBuilder extends StatelessWidget {
             ),
           ),
         ),
-
       ],
     );
   }
