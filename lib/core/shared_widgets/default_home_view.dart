@@ -9,7 +9,7 @@ class DefaultHomeView extends StatelessWidget {
 
   final Widget widget;
   final Widget? bottomNavigationBarWidget;
-  final Widget? floatingActionButton;
+  final FloatingActionButton? floatingActionButton;
 
 
 
@@ -41,7 +41,7 @@ class DefaultHomeView extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: bottomNavigationBarWidget,
-      floatingActionButton: FloatingActionButton(onPressed: (){},),
+      floatingActionButton: floatingActionButton,
     );
   }
 
