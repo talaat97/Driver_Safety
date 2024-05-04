@@ -36,7 +36,7 @@ class FormFieldItemBuilder extends StatelessWidget {
         validator: (value) {
           if(!isRequired) return null;
           if (value!.isEmpty) {
-            return 'you must fill this field ';
+            return 'You must fill this field ';
           }
           return null;
         },
@@ -50,7 +50,7 @@ class FormFieldItemBuilder extends StatelessWidget {
         cursorColor: ColorsManager.primary,
         decoration: InputDecoration(
           prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 15,right: 9,top: 3,bottom: 3),
+            padding: const EdgeInsets.only(left: 15,right: 9,top: 8,bottom: 8),
             child: prefix,
           ),
           suffixIcon: suffix,
@@ -59,9 +59,9 @@ class FormFieldItemBuilder extends StatelessWidget {
             fontSize: SizeManager.formFieldFontSize,
             color: ColorsManager.grey,
           ),
-          errorStyle: TextStyleManager.textStyleLight.copyWith(
+          errorStyle: TextStyleManager.textStyleMedium.copyWith(
             fontSize: SizeManager.formFieldFontSize,
-            color: ColorsManager.red,
+            color: ColorsManager.primary,
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -84,13 +84,13 @@ class FormFieldItemBuilder extends StatelessWidget {
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: const BorderSide(
-              color: ColorsManager.red,
+              color: ColorsManager.primary,
             )
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: const BorderSide(
-              color: ColorsManager.red,
+              color: ColorsManager.primary,
             )
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 8)

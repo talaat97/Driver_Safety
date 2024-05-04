@@ -1,4 +1,6 @@
 
+import 'package:driver_safety/features/auth/presentation/cubit/sign_in_cubit/sign_in_cubit.dart';
+import 'package:driver_safety/features/auth/presentation/cubit/sign_up_cubit/sign_up_cubit.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_nav_cubit/home_nav_cubit.dart';
 import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
 import 'package:driver_safety/features/home/presentation/view/message_page.dart';
@@ -25,15 +27,10 @@ class _MyAppState extends State<MyApp> {
   User? user;
   @override
   void initState() {
-
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-
-        print('------------------------------User is currently signed out!');
-      } else {
+      setState(() {
         this.user = user;
-        print('------------------------------User is signed in!');
-      }
+      });      
     });
     super.initState();
   }
@@ -43,16 +40,16 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: 
       [
-        BlocProvider(create: (context)=> HomeNavCubit())
+        BlocProvider(create: (context)=> HomeNavCubit()),
+        BlocProvider(create: (context)=> SignUpCubit()),
+        BlocProvider(create: (context)=> SignInCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeManager.light,
         title: ConstantsManager.appName,
         debugShowCheckedModeBanner: false,
-        //home: const ContactPage(),
-        home: user ==null && false ? const OnBoardingView() : const HomePageView(),
+        home: user ==null ? const OnBoardingView() : const HomePageView(),
       ),
     );
   }
 }
- //my t3del wa saber

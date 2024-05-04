@@ -22,7 +22,7 @@ class GoogleButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(SizeManager.formButtonRadiusSize)
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 17.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
