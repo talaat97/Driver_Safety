@@ -16,13 +16,3 @@ void main() async {
   //todo check first open
   runApp( MyApp());
 }
-
-
-
-
-
-
-
-
-
-// hello from saber 

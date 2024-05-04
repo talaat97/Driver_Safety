@@ -75,9 +75,12 @@ class _HomePageViewBuilderState extends State<HomePageViewBuilder> {
 
     return Column(
       children: [
-        Text('Drive safety',
-            style: TextStyleManager.textStyleBold
-                .copyWith(color: ColorsManager.white, fontSize: 24)),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Text('Drive safety',
+              style: TextStyleManager.textStyleBold
+                  .copyWith(color: ColorsManager.white, fontSize: 24)),
+        ),
         const SizedBox(height: 200),
         Text(
           'Welcome',
@@ -87,11 +90,14 @@ class _HomePageViewBuilderState extends State<HomePageViewBuilder> {
               fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 112),
-        Text(
-          textAlign: TextAlign.center,
-          "So that we can help you,please specify your",
-          style: TextStyleManager.textStyleRegular
-              .copyWith(color: ColorsManager.black, fontSize: 32),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            textAlign: TextAlign.center,
+            "So that we can help you,please specify your",
+            style: TextStyleManager.textStyleRegular
+                .copyWith(color: ColorsManager.black, fontSize: 32),
+          ),
         ),
         InkWell(
           onTap: () async {
