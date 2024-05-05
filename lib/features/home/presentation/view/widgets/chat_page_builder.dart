@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'chat_widgets/chat-messages.dart';
+import 'chat_widgets/chat_messages.dart';
 import 'chat_widgets/new_message.dart';
 
 class ChatPageBuilder extends StatelessWidget {
