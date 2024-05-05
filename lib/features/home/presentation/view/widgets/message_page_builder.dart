@@ -1,9 +1,7 @@
 import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:driver_safety/core/resources_manager/style_manager.dart';
 import 'package:driver_safety/core/shared_widgets/form/form_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class MessagaPageBuilder extends StatelessWidget {
@@ -58,7 +56,7 @@ class MessagaPageBuilder extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.send,
                       size: 30,
                     ),
@@ -67,7 +65,7 @@ class MessagaPageBuilder extends StatelessWidget {
               ),
              const SizedBox(height:60 ),
               Text(
-                'To Second contact ',
+                'To Second contact',
                 style: TextStyleManager.textStyleRegular.copyWith(
                     color: ColorsManager.primary,
                     fontSize: 20,
