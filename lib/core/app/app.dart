@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       title: ConstantsManager.appName,
       debugShowCheckedModeBanner: false,
       //home: const ContactPage(),
-      home: user ==null && false ? const OnBoardingView() : const HomePageView(),
+      home: user == null && true ? const OnBoardingView() : const HomePageView(),
     );
   }
 }

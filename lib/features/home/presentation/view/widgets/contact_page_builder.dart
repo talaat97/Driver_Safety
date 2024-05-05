@@ -9,7 +9,7 @@ class ContactPageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Contact> contactList = [];
+
     return Column(
       children: [
         Padding(
