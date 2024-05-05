@@ -8,6 +8,7 @@ import 'package:driver_safety/core/shared_widgets/form/form_button.dart';
 import 'package:driver_safety/core/shared_widgets/form/form_item_builder.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
 import 'package:driver_safety/features/auth/presentation/views/widgets/google_button.dart';
+import 'package:driver_safety/features/auth/presentation/views/widgets/sign_In_view_builder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -85,12 +86,14 @@ class SignUpViewBuilder extends StatelessWidget {
                           email: _emailController.text,
                           password: _passwordController.text,
                         );
+                        final User user = FirebaseAuth.instance.currentUser!;
                         await FirebaseFirestore.instance
                             .collection('users')
-                            .doc(_phoneController.text)
+                            .doc(user.uid)
                             .set({
                           'email': _emailController.text,
                           'name': _nameController.text,
+                          'phone':_phoneController.text,
                         });
                         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
                         Get.to( const SignInView());
@@ -109,7 +112,9 @@ class SignUpViewBuilder extends StatelessWidget {
                 const SizedBox(
                   height: SizeManager.spaceBetweenForm - 2,
                 ),
-                GoogleButton(label: 'Sign up With Google', onPressed: () {}),
+                GoogleButton(label: 'Sign up With Google', onPressed: () {
+                  signInWithGoogle();
+                }),
                 const SizedBox(
                   height: SizeManager.spaceBetweenForm - 2,
                 ),
