@@ -11,14 +11,18 @@ class FormItemBuilder extends StatelessWidget {
     this.onChange,
     this.suffix,
     this.prefix,
+    this.hint,
     this.enabled = true,
+    this.isBig = false,
     required this.controller,
     required this.textInputType
   });
 
   final String label;
+  final String? hint;
   final bool isRequired;
   final bool enabled;
+  final bool isBig;
   final void Function(String)? onChange;
   final Widget? suffix;
   final Widget? prefix;
@@ -36,10 +40,21 @@ class FormItemBuilder extends StatelessWidget {
           isRequired: isRequired
         ),
         const SizedBox(height: SizeManager.formItemSize),
+        isBig?
+        FormFieldBigItemBuilder(
+          enabled: enabled,
+          isRequired: isRequired,
+          label:  hint ?? 'Enter your $label',
+          controller: controller,
+          textInputType: TextInputType.emailAddress,
+          onChange: onChange,
+          prefix: prefix,
+          suffix: suffix,
+        ):
         FormFieldItemBuilder(
           enabled: enabled,
           isRequired: isRequired,
-          label:  'Enter your $label',
+          label:  hint ?? 'Enter your $label',
           controller: controller,
           textInputType: TextInputType.emailAddress,
           onChange: onChange,

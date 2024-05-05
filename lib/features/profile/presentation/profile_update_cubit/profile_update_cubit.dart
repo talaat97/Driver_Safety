@@ -1,12 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:driver_safety/features/auth/data/models/user_model.dart';
-import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
-import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_states.dart';
 import 'package:driver_safety/features/profile/presentation/profile_update_cubit/profile_update_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class ProfileUpdateCubit extends Cubit<ProfileUpdateStates> {
   ProfileUpdateCubit() : super(ProfileUpdateInitialState());

@@ -1,9 +1,13 @@
 
+import 'package:driver_safety/features/home/data/model/contact_model.dart';
+
 class UserModel {
   String? name;
   String? phone;
   String? email;
   String? password;
+  ContactModel? firstContactModel;
+  ContactModel? secondContactModel;
  
 
   UserModel({

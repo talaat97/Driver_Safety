@@ -1,4 +1,4 @@
-import 'package:driver_safety/core/shared_widgets/default_bottom_navigation_bar.dart';
+import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:driver_safety/core/shared_widgets/default_home_view.dart';
 import 'package:driver_safety/features/home/presentation/view/edit_of_contact.dart';
 import 'package:driver_safety/features/home/presentation/view/widgets/contact_page_builder.dart';
@@ -13,11 +13,16 @@ class ContactPage extends StatelessWidget {
     return DefaultHomeView(
       widget: const ContactPageBuilder(),
       floatingActionButton: FloatingActionButton(
-
-          onPressed: (){
+          shape: const CircleBorder(),
+          backgroundColor: ColorsManager.primary,
+          child: const Icon(
+            Icons.add,
+            color: ColorsManager.white,
+            size: 35,
+          ),
+          onPressed: () {
             Get.to(const EditOfContact());
           }),
-     // bottomNavigationBarWidget: const HomeBottomNavigationBar(),
     );
   }
 }

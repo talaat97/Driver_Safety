@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:driver_safety/features/auth/data/models/user_model.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
+import 'package:driver_safety/features/home/data/model/contact_model.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,17 @@ class HomeCubit extends Cubit<HomeStates> {
       try{
       var response = await FirebaseFirestore.instance.collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+      var contactResponse1 = await FirebaseFirestore.instance.collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid).collection('contacts')
+      .doc('1').get();
+      var contactResponse2 = await FirebaseFirestore.instance.collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid).collection('contacts')
+      .doc('2').get();
+
       userModel = UserModel.fromJson(response.data()!);
+      userModel!.firstContactModel = ContactModel.fromJson(contactResponse1.data()!);
+      userModel!.secondContactModel = ContactModel.fromJson(contactResponse2.data()!);
       }
       catch(e)
       {
