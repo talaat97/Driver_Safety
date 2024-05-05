@@ -1,5 +1,7 @@
 import 'package:driver_safety/core/resources_manager/style_manager.dart';
+import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
 import 'package:driver_safety/features/profile/presentation/views/your_profile_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +30,11 @@ class ProfileViewBuilderBody extends StatelessWidget {
         ProfileViewBuilderBodyBuilder(
           icon: Icons.logout,
           title: 'Log out',
-          onTab: (){}
+          onTab: () async
+          {
+            await FirebaseAuth.instance.signOut();
+            Get.off(const SignInView());
+          }
         ),
       ],
     );
