@@ -2,6 +2,7 @@
 import 'package:driver_safety/features/auth/presentation/cubit/sign_in_cubit/sign_in_cubit.dart';
 import 'package:driver_safety/features/auth/presentation/cubit/sign_up_cubit/sign_up_cubit.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
+import 'package:driver_safety/features/home/presentation/cubit/contacts_cubit/contacts_cubit.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_cubit.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_nav_cubit/home_nav_cubit.dart';
 import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context)=> SignUpCubit()),
         BlocProvider(create: (context)=> SignInCubit()),
         BlocProvider(create: (context)=> ProfileUpdateCubit()),
+        BlocProvider(create: (context)=> ContactsCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeManager.light,
