@@ -14,8 +14,8 @@ class SignUpCubit extends Cubit<SignUpStates> {
     emit(SignUpLoadingState());
     try {
         var checkUser = await FirebaseFirestore.instance.
-        collection('users').doc(userModel.phone).get(); 
-        if(checkUser.exists)
+        collection('users').where('phone', isEqualTo: userModel.phone).get(); 
+        if(checkUser.docs.isNotEmpty)
         {
           emit(SignUpErrorState('Phone Number already exists.\nTry sign in'));
         }
@@ -29,7 +29,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
           {
             await FirebaseAuth.instance.currentUser!.sendEmailVerification();
             await FirebaseFirestore.instance.
-            collection('users').doc(userModel.phone).set(userModel.toJson());
+            collection('users').doc(crederntial.user!.uid).set(userModel.toJson());
             emit(SignUpSuccessState('Verification Email has been sent to your email.\nPlease Verify Email'));
           }
         }

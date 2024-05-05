@@ -10,7 +10,7 @@ class UserModel {
     required this.phone,
     required this.name,
     required this.email,
-    required this.password
+    this.password
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {

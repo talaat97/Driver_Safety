@@ -12,6 +12,8 @@ import 'package:driver_safety/features/auth/presentation/views/forget_password_v
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_up_view.dart';
 import 'package:driver_safety/features/auth/presentation/views/widgets/google_button.dart';
+import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_cubit.dart';
+import 'package:driver_safety/features/home/presentation/view/home_page_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +44,11 @@ class _SignInViewBuilderState extends State<SignInViewBuilder> {
         if(state is SignInErrorState)
         {
           callMySnackBar(context: context, text: state.error);
+        }
+        else if (state is SignInSuccessState)
+        {
+          HomeCubit.get(context).assignUser(userModel: state.userModel);
+          Get.off(const HomePageView());
         }
       },
       builder: (context, state) => Padding(

@@ -9,48 +9,86 @@ class SignInCubit extends Cubit<SignInStates> {
 
   static SignInCubit get(context) => BlocProvider.of(context);
 
-  void checkUserSignIn(String email, String password) async
+  /*void checkUserSignIn({required String input1, required String password, UserModel? userModel}) async
   {
     
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
+      email: input1,
       password: password
     );  
     if(credential.user!.emailVerified)
     {
-      emit(SignInSuccessState());
+      if(userModel != null)
+      {
+        emit(SignInSuccessState(userModel));
+      }
+      else
+      {
+        var response = await FirebaseFirestore.instance.collection('users')
+        .where('email', isEqualTo: input1).get();
+        emit(SignInSuccessState(UserModel.fromJson(response.docs[0].data())));
+      }
     }
     else
     {
       emit(SignInErrorState('Email has not been verified yet\nPlease check your email'));
     }
   }
+  */
   Future signIn({required String emailOrPhone, required String password}) async
   {
     emit(SignInLoadingState());
     try 
     {
       var checkUser = await FirebaseFirestore.instance.
-        collection('users').doc(emailOrPhone).get(); 
-        if(checkUser.exists)
+        collection('users').where('phone', isEqualTo: emailOrPhone).get(); 
+        String input1 = emailOrPhone;
+        UserModel? userModel;
+        if(checkUser.docs.isNotEmpty)
         {
-          UserModel userModel = UserModel.fromJson(checkUser.data()!);
-          checkUserSignIn(userModel.email!, password);
+          userModel = UserModel.fromJson(checkUser.docs.first.data());
+          input1 = userModel.email!;
         }
-        else
-        {
-          checkUserSignIn(emailOrPhone, password);
-        }
+        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: input1,
+          password: password
+        );  
+    if(credential.user!.emailVerified)
+    {
+      if(userModel != null)
+      {
+        emit(SignInSuccessState(userModel));
+      }
+      else
+      {
+        var response = await FirebaseFirestore.instance.collection('users')
+        .doc(credential.user!.uid).get();
+        emit(SignInSuccessState(UserModel.fromJson(response.data()!)));
+      }
+    }
+    else
+    {
+      emit(SignInErrorState('Email has not been verified yet\nPlease check your email'));
+    }
     }
      on FirebaseAuthException catch (e) 
      {
+      print('object--------------');
+      print(e.code);
       String errMsg = e.toString();
       if (e.code == 'user-not-found') {
         errMsg = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
         errMsg = 'Wrong password provided for that user.';
       }
+       else if (e.code == 'invalid-credential') {
+        errMsg = 'Wrong email or password';
+      }
       emit(SignInErrorState(errMsg));
+    }
+    catch(e)
+    {
+      emit(SignInErrorState(e.toString()));
     }
   }
 

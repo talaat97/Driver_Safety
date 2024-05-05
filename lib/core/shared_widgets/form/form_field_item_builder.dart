@@ -14,9 +14,11 @@ class FormFieldItemBuilder extends StatelessWidget {
     this.onChange,
     this.prefix,
     this.suffix,
+    this.enabled =true,
   });
 
   final bool isRequired;
+  final bool enabled;
   final void Function(String)? onChange;
   final Widget? suffix;
   final Widget? prefix;
@@ -33,6 +35,7 @@ class FormFieldItemBuilder extends StatelessWidget {
         primaryColor: ColorsManager.primary,
       ),
       child: TextFormField(
+        enabled: enabled,
         validator: (value) {
           if(!isRequired) return null;
           if (value!.isEmpty) {
