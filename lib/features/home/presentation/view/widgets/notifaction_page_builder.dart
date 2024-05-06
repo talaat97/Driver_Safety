@@ -29,7 +29,6 @@ class NotifactionPageBuilder extends StatelessWidget {
         const SizedBox(height: 300),
         InkWell(
           onTap: (){
-
             Get.to( const ChatPage());
           },
           child: Padding(

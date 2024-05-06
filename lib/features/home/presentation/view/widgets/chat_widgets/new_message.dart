@@ -27,24 +27,20 @@ class _NewMessageState extends State<NewMessage> {
 
     FocusScope.of(context).unfocus();
     _messageController.clear();
-
+    //////////////////////////////////
     final User user = FirebaseAuth.instance.currentUser!;
-    print(user.email);
-    print(user.uid);
-
-    final userdata = await FirebaseFirestore.instance
+    final contact1 = FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .get();
-
-    print(userdata);
-
-    await FirebaseFirestore.instance.collection('chat').add({
-      'text': enteredMessage,
-      'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'username': userdata.data()!['name'],
-      'senderPhone': userdata.data()!['phone'],
+        .collection('contacts')
+        .doc('1')
+        .get()
+        .then((value) {
+      if (value.exists) {
+        print(value.data()!['name']);
+      } else {
+        print('no data exist');
+      }
     });
   }
 
@@ -94,3 +90,29 @@ class _NewMessageState extends State<NewMessage> {
       'userId': user.phoneNumber,
       'username': userdata.data()!['name'],
     });*/
+
+/*
+ final User user = FirebaseAuth.instance.currentUser!;
+    print(user.email);
+    print(user.uid);
+
+    final userdata = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    final contactCollection = await FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+     final contactData= contactCollection.collection('contacts').doc('1').get();
+    final chat = await FirebaseFirestore.instance.collection('chats').doc(user.uid);
+
+    chat.set({
+      'senderMassage': enteredMessage,
+      'createdAt': Timestamp.now(),
+      'senderName': userdata.data()!['name'],
+      'senderPhone': userdata.data()!['phone'],
+      'ReceiverMassage': '' ,
+      'ReceiverName': contactData,
+      'ReceivePhone': ,
+    });
+*/

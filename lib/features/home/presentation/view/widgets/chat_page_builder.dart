@@ -10,7 +10,6 @@ class ChatPageBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-
         Expanded(child: ChatMessage()),
         NewMessage(),
       ],
