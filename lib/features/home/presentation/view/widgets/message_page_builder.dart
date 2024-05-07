@@ -13,11 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessagaPageBuilder extends StatelessWidget {
-   MessagaPageBuilder({super.key});
+  MessagaPageBuilder({super.key});
 
-final TextEditingController msg1 = TextEditingController();
+  final TextEditingController msg1 = TextEditingController();
   final TextEditingController msg2 = TextEditingController();
-    final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,112 +37,107 @@ final TextEditingController msg1 = TextEditingController();
             ),
           ),
           const SizedBox(height: 50),
-
           BlocConsumer<HomeCubit, HomeStates>(
-            listener: (context, state) {
-              
-            },
-            builder: (context, state) 
-            {
-              if(HomeCubit.get(context).userModel!=null){
-                msg1.text = HomeCubit.get(context).userModel!.firstContactModel!.msgTo!;
-                msg2.text = HomeCubit.get(context).userModel!.secondContactModel!.msgTo!;
-              return Expanded(
-            child: Form(
-              key: formKey,
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: 
-                    [
-                      FormItemBuilder(
-                        isBig: true,
-                        label: 'To First Contact',
-                        hint: 'Enter Message for him/her',
-                        isRequired: true,
-                        controller: msg1,
-                        suffix: const Icon(Icons.send, color: ColorsManager.primary,),
-                        textInputType: TextInputType.text),
-                      const SizedBox(
-                        height: SizeManager.spaceBetweenForm*3,
-                      ),
-                       FormItemBuilder(
-                        isBig: true,
-                        label: 'To Second Contact',
-                        hint: 'Enter Message for him/her',
-                        isRequired: true,
-                        controller: msg2,
-                        suffix: const Icon(Icons.send, color: ColorsManager.primary,),
-                        textInputType: TextInputType.text),
-                        const SizedBox(height: 50),
-                            BlocConsumer<ContactsCubit, ContactsStates>(
-                  listener: (context, state)
-                  {
-                    if(state is ContactsUpdateSuccessState)
-                    {
-                      UserModel userModel = HomeCubit.get(context).userModel!;
-                      userModel.firstContactModel = state.firstContactModel;
-                      userModel.secondContactModel = state.secondContactModel;
-                      HomeCubit.get(context).assignUser(userModel: userModel);
-                      callMySnackBar(context: context, text: 'Updated Successfully');
-                    } 
-                    else if(state is ContactsUpdateErrorState)
-                    {
-                      callMySnackBar(context: context, text: state.error);
-                    }
-                  },
-                  builder: (context, state)
-                  {
-                    if(state is ContactsUpdateLoadingState)
-                    {
-                      return const CircularProgressIndicator();
-                    }
-                    else 
-                    {
-                      return Align(
-                        alignment: Alignment.center,
-                        child:
-                        FormButton(
-                          label: 'Done',
-                          onPressed: () {
-                            if(formKey.currentState!.validate())
-                            {
-                            ContactsCubit.get(context).updateContact(
-                              firstContactMsg: msg1.text, secondContactMsg: msg2.text,
-                              userModel: HomeCubit.get(context).userModel!
-                            );
-                            }
-                          },
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is HomeGetUserFromCloudLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is HomeUserFromCloudErrorState) {
+                  return Center(
+                    child: Text(state.error),
+                  );
+                } else 
+                {
+                  msg1.text = HomeCubit.get(context).userModel!.firstContactModel != null?
+                  HomeCubit.get(context).userModel!.firstContactModel!.msgTo! : '';
+                  msg2.text = HomeCubit.get(context).userModel!.secondContactModel != null?
+                  HomeCubit.get(context).userModel!.secondContactModel!.msgTo!:'';
+                  return Expanded(
+                    child: Form(
+                      key: formKey,
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              FormItemBuilder(
+                                  isBig: true,
+                                  label: 'To First Contact',
+                                  hint: 'Enter Message for him/her',
+                                  isRequired: true,
+                                  controller: msg1,
+                                  suffix: const Icon(
+                                    Icons.send,
+                                    color: ColorsManager.primary,
+                                  ),
+                                  textInputType: TextInputType.text),
+                              const SizedBox(
+                                height: SizeManager.spaceBetweenForm * 3,
+                              ),
+                              FormItemBuilder(
+                                  isBig: true,
+                                  label: 'To Second Contact',
+                                  hint: 'Enter Message for him/her',
+                                  isRequired: true,
+                                  controller: msg2,
+                                  suffix: const Icon(
+                                    Icons.send,
+                                    color: ColorsManager.primary,
+                                  ),
+                                  textInputType: TextInputType.text),
+                              const SizedBox(height: 50),
+                              BlocConsumer<ContactsCubit, ContactsStates>(
+                                  listener: (context, state) {
+                                if (state is ContactsUpdateSuccessState) {
+                                  UserModel userModel =
+                                      HomeCubit.get(context).userModel!;
+                                  userModel.firstContactModel =
+                                      state.firstContactModel;
+                                  userModel.secondContactModel =
+                                      state.secondContactModel;
+                                  HomeCubit.get(context)
+                                      .assignUser(userModel: userModel);
+                                  callMySnackBar(
+                                      context: context,
+                                      text: 'Updated Successfully');
+                                } else if (state is ContactsUpdateErrorState) {
+                                  callMySnackBar(
+                                      context: context, text: state.error);
+                                }
+                              }, builder: (context, state) {
+                                if (state is ContactsUpdateLoadingState) {
+                                  return const CircularProgressIndicator();
+                                } else {
+                                  return Align(
+                                    alignment: Alignment.center,
+                                    child: FormButton(
+                                      label: 'Done',
+                                      onPressed: () {
+                                        if (formKey.currentState!.validate()) {
+                                          ContactsCubit.get(context)
+                                              .updateContact(
+                                                  firstContactMsg: msg1.text,
+                                                  secondContactMsg: msg2.text,
+                                                  userModel:
+                                                      HomeCubit.get(context)
+                                                          .userModel!);
+                                        }
+                                      },
+                                    ),
+                                  );
+                                }
+                              }),
+                            ],
+                          ),
                         ),
-                  
-                      );
-                    }
-                  }),
-                          
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-            }
-            else if(state is HomeGetUserFromCloudLoadingState)
-                      {
-                        return const Center(child: CircularProgressIndicator(),);
-                      }
-                      else if (state is HomeUserFromCloudErrorState)
-                      {
-                        return Center(child: Text(state.error),);
-                      }
-                      else
-                      {
-                        return const SizedBox();
-                      }
-            }
-            
-          )
-
-          ],
+                      ),
+                    ),
+                  );
+                                 
+                }
+              })
+        ],
       ),
     );
   }

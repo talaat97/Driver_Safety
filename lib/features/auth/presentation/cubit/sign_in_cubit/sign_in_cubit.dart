@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:driver_safety/features/auth/data/models/user_model.dart';
 import 'package:driver_safety/features/auth/presentation/cubit/sign_in_cubit/sign_in_states.dart';
+import 'package:driver_safety/features/home/data/model/contact_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,6 +49,14 @@ class SignInCubit extends Cubit<SignInStates> {
         {
           userModel = UserModel.fromJson(checkUser.docs.first.data());
           input1 = userModel.email!;
+          var contactResponse1 = await FirebaseFirestore.instance.collection('users')
+          .doc(checkUser.docs.first.id).collection('contacts')
+          .doc('1').get();
+          var contactResponse2 = await FirebaseFirestore.instance.collection('users')
+          .doc(checkUser.docs.first.id).collection('contacts')
+          .doc('2').get();
+          if(contactResponse1.exists){userModel.firstContactModel = ContactModel.fromJson(contactResponse1.data()!);} 
+        if(contactResponse2.exists){userModel.secondContactModel = ContactModel.fromJson(contactResponse2.data()!);}
         }
         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: input1,
@@ -63,7 +72,17 @@ class SignInCubit extends Cubit<SignInStates> {
       {
         var response = await FirebaseFirestore.instance.collection('users')
         .doc(credential.user!.uid).get();
-        emit(SignInSuccessState(UserModel.fromJson(response.data()!)));
+        var contactResponse1 = await FirebaseFirestore.instance.collection('users')
+        .doc(checkUser.docs.first.id).collection('contacts')
+        .doc('1').get();
+        var contactResponse2 = await FirebaseFirestore.instance.collection('users')
+        .doc(checkUser.docs.first.id).collection('contacts')
+        .doc('2').get();
+        userModel = UserModel.fromJson(response.data()!);
+        if(contactResponse1.exists){userModel.firstContactModel = ContactModel.fromJson(contactResponse1.data()!);} 
+        if(contactResponse2.exists){userModel.secondContactModel = ContactModel.fromJson(contactResponse2.data()!);}
+
+        emit(SignInSuccessState(userModel));
       }
     }
     else
