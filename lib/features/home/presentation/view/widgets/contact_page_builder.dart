@@ -1,6 +1,5 @@
 import 'package:driver_safety/core/resources_manager/color_manager.dart';
 import 'package:driver_safety/core/resources_manager/style_manager.dart';
-import 'package:driver_safety/features/home/data/model/Contact.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_cubit.dart';
 import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_states.dart';
 import 'package:driver_safety/features/home/presentation/view/edit_of_contact.dart';
@@ -37,28 +36,32 @@ class ContactPageBuilder extends StatelessWidget {
           },
           builder: (context, state) 
           {
-            if(HomeCubit.get(context).userModel!=null){
-            return Column(
-              children: 
-              [
-                ContactItemBuilder(name: HomeCubit.get(context).userModel!.firstContactModel!.name!),
-                const SizedBox(height: 23),
-                ContactItemBuilder(name: HomeCubit.get(context).userModel!.secondContactModel!.name!),
-              ],
-            );
+            
+            if(state is HomeGetUserFromCloudLoadingState)
+            {
+              return const Center(child: CircularProgressIndicator(),);
             }
-            else if(state is HomeGetUserFromCloudLoadingState)
-                      {
-                        return const Center(child: CircularProgressIndicator(),);
-                      }
-                      else if (state is HomeUserFromCloudErrorState)
-                      {
-                        return Center(child: Text(state.error),);
-                      }
-                      else
-                      {
-                        return const SizedBox();
-                      }
+            else if (state is HomeUserFromCloudErrorState)
+            {
+              return Center(child: Text(state.error),);
+            }
+            else
+            {
+              return Column(
+                children: 
+                [
+                  ContactItemBuilder(
+                    name: HomeCubit.get(context).userModel!.firstContactModel!=null ?
+                    HomeCubit.get(context).userModel!.firstContactModel!.name! :'First contact Name'
+                  ),
+                  const SizedBox(height: 23),
+                  ContactItemBuilder(
+                    name: HomeCubit.get(context).userModel!.secondContactModel !=null ?
+                    HomeCubit.get(context).userModel!.secondContactModel!.name! : 'Second contact name'
+                  ),
+                ],
+              );
+            }
           }
         ),
         
