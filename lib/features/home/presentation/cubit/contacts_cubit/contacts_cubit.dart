@@ -22,7 +22,7 @@ class ContactsCubit extends Cubit<ContactsStates> {
   {
     emit(ContactsUpdateLoadingState());
     try{
-      if((secondContact ==null&&firstContact==null) || (userModel.firstContactModel==null&&userModel.secondContactModel==null))
+      if(secondContact ==null && userModel.secondContactModel==null)
       {
         emit(ContactsUpdateErrorState('Please add Contacts First'));
         return ;
