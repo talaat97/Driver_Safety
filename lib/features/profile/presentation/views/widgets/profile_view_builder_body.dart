@@ -1,5 +1,7 @@
 import 'package:driver_safety/core/resources_manager/style_manager.dart';
 import 'package:driver_safety/features/auth/presentation/views/sign_in_view.dart';
+import 'package:driver_safety/features/home/presentation/cubit/contacts_cubit/contacts_cubit.dart';
+import 'package:driver_safety/features/home/presentation/cubit/home_cubit/home_cubit.dart';
 import 'package:driver_safety/features/profile/presentation/views/your_profile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,9 @@ class ProfileViewBuilderBody extends StatelessWidget {
           onTab: () async
           {
             await FirebaseAuth.instance.signOut();
+            ContactsCubit.get(context).firstContact=null;
+            ContactsCubit.get(context).secondContact=null;
+            HomeCubit.get(context).userModel = null;
             Get.off(const SignInView());
           }
         ),
