@@ -37,11 +37,15 @@ class HomeCubit extends Cubit<HomeStates> {
       .doc('2').get();
 
       userModel = UserModel.fromJson(response.data()!);
-      userModel!.firstContactModel = ContactModel.fromJson(contactResponse1.data()!);
-      userModel!.secondContactModel = ContactModel.fromJson(contactResponse2.data()!);
+      if(contactResponse1.exists){userModel!.firstContactModel = ContactModel.fromJson(contactResponse1.data()!);}
+      if(contactResponse2.exists){userModel!.secondContactModel = ContactModel.fromJson(contactResponse2.data()!);}
+
+
+      emit(HomeUserFromCloudSuccessState());
       }
       catch(e)
       {
+        emit(HomeUserFromCloudErrorState('Sorry, there is an issue \nTry again later'));
         print(e.toString());
         Get.off(const SignInView());
       }
